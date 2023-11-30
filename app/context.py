@@ -14,7 +14,7 @@ class ContextManager:
             content = self.messages[0].get("content", "")
             self.currentLength -= 50 if len(content) == 0 else len(content)
             self.messages = self.messages[1:]
-
+        
         return self.messages
 
     def add(self, role, message):

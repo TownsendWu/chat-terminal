@@ -3,6 +3,8 @@ from rich.markdown import Markdown
 from rich.table import Table
 from rich.live import Live
 
+import sys
+
 import time
 
 
@@ -14,11 +16,25 @@ class Common:
         pass
 
     def welcome(self):
-        with open("./welcome.md", "r", encoding="utf8") as f:
-            txt = f.read()
-            markdown = Markdown(txt)
-            console.print(markdown)
-            console.rule("[bold red]开始使用吧")
+        welcome = """
+# Chat Terminal
+
+> ***Chat Terminal*** **是一个在 terminal 中使用的 chatgpt 支持 markdown 显示 和上下文记录**
+
+可选，启动时加上额外参数可显示emoji：
+```shell
+chat-terminal emoji
+🧛 : 你是谁
+🤖 : 我是一个在terminal中的对话机器人。
+```
+- 输入 **quit** 退出
+- 输入 **clear** 清屏
+- 输入 **context** 查看上下文
+- 输入 **reset** 重置api key
+"""
+        markdown = Markdown(welcome)
+        console.print(markdown)
+        console.rule("[bold red]")
 
     def context(self, messages):
         table = Table()
@@ -35,7 +51,11 @@ class Common:
 
 class Person:
     def __init__(self):
-        self.icon = ":vampire: : "
+        self.icon = "[bold magenta]Me[/bold magenta]: "
+        if len(sys.argv) >=2:
+            param = sys.argv[1]
+            if param == "emoji":
+                self.icon = ":vampire: : "
 
     def input(self, text=""):
         tip = self.icon
@@ -51,7 +71,11 @@ class Person:
 
 class Robot:
     def __init__(self):
-        self.icon = ":robot: : "
+        self.icon = "[bold yellow]Robot[/bold yellow]: "
+        if len(sys.argv) >=2:
+            param = sys.argv[1]
+            if param == "emoji":
+                self.icon = ":vampire: : "
 
     def answer(self, text):
         content = text

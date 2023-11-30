@@ -1,6 +1,9 @@
 from .entity import Person, Robot, Common
 from .openai import ChaGPT, Response
 from .context import ContextManager
+import os
+from pathlib import Path
+import sys
 
 
 common = Common()
@@ -70,7 +73,16 @@ def cli():
 
 def initApiKey(overwrite=False):
     key = ""
-    with open("./api_key.txt", "r", encoding="utf8") as f:
+    user_path = os.path.expanduser("~")
+    config_path = Path(user_path).joinpath("api_key.ini")
+    if not config_path.exists():
+        with open(config_path, "w", encoding="utf8") as f:
+            key = me.input("请输入open ai apikey: ")
+            key = key.replace(" ", "")
+            f.write(key)
+            return key
+
+    with open(config_path, "r", encoding="utf8") as f:
         key = f.readline()
         if overwrite or key is None or len(key) == 0:
             key = me.input("请输入open ai apikey: ")
@@ -78,7 +90,7 @@ def initApiKey(overwrite=False):
             overwrite = True
 
     if overwrite and len(key) > 0:
-        with open("./api_key.txt", "w+", encoding="utf8") as f:
+        with open(config_path, "w+", encoding="utf8") as f:
             f.write(key)
 
     return key

@@ -1,5 +1,11 @@
-from rich.console import Console
+import platform
 
-console = Console()
+# 获取终端环境
+print("终端环境:")
+print(platform.system())
+print()
 
-console.print(":robot:")
+# 获取终端版本
+print("终端版本:")
+print(platform.version())
+print()
