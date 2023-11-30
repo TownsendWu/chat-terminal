@@ -45,7 +45,7 @@ def cli():
             recordText = ""
             messages = contextManager.get()
             
-            with common.console().status("[bold yellow]Robot[/bold yellow]: ",spinner="dots"):
+            with common.console().status("[bold yellow]正在加载中[/bold yellow]: ",spinner="dots"):
                 chunks = chatGpt.chat(messages)
             robot.print(end="")
             for chunk in chunks:

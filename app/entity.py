@@ -78,7 +78,7 @@ class Robot:
         if len(sys.argv) >=2:
             param = sys.argv[1]
             if param == "emoji":
-                self.icon = ":vampire: : "
+                self.icon = ":robot: : "
 
     def answer(self, text):
         content = text
