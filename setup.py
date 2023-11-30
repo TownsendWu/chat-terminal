@@ -8,7 +8,7 @@ with io.open("README.md", "rt", encoding="utf8") as f:
     LONG_DESC = f.read()
 
 # 版本号.修改号.修复号
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 # This call to setup() does all the work
 setup(
@@ -18,7 +18,7 @@ setup(
     long_description=LONG_DESC,
     long_description_content_type="text/markdown",
     python_requires=">=3.6",
-    url="https://github.com/townsend/chat-terminal",
+    url="https://github.com/TownsendWu/chat-terminal",
     author="Townsend",
     author_email="wtsai20200206@gmail.com",
     license="MIT",
