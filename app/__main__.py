@@ -1,34 +1,61 @@
 import time
+from entity import Person, Robot, Common
+from openai import ChaGPT, Response
+from context import ContextManager
 
-
-from entity import Person,Robot
-
-
-text = """
-# This is an h1
-
-Rich can do a pretty *decent* job of rendering markdown.
-
-1. This is a list item
-2. This is another list item
-"""
+common = Common()
 me = Person()
 robot = Robot()
+contextManager = ContextManager()
+chatGpt = ChaGPT("sk-HNEndMOWrHGpnrYS405093141b294b5aB3Ea646dC992C4D6")
+
 
 def cli():
+    common.welcome()
     while True:
-        question = me.ask()
+        input = me.ask()
 
-        if question == "quit":
+        if input == "quit":
             robot.print("bye ~")
             break
+
+        if input == "clear":
+            common.clear()
+            continue
         
-        robot.print(end="")
-        
-        for i in range(len(text)):
-            time.sleep(0.1)
-            robot.answer(text[i])
-        print("")
+        if input == "context":
+            common.context(contextManager.get())
+            continue
+
+        cnt = 1
+        contextManager.add("user", input)
+
+        try:
+            recordText = ""
+            messages = contextManager.get()
+            chunks = chatGpt.chat(messages)
+            robot.print(end="")
+            for chunk in chunks:
+                res = Response(chunk)
+                content = res.getContent()
+                robot.answer(content)
+
+                recordText += content
+
+            if len(recordText) == 0:
+                robot("[bold red]出现错误了[/]")
+                print("")
+                continue
+
+            cnt += 1
+            contextManager.add(res.role, recordText)
+            print("")
+        except Exception as e:
+            robot.print("出现了异常: " + str(e))
+            # 清理出现异常的上下文
+            contextManager.remove(cnt)
+
+        cnt = 0
 
 
 def main():
