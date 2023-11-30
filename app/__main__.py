@@ -3,8 +3,6 @@ from .openai import ChaGPT, Response
 from .context import ContextManager
 import os
 from pathlib import Path
-import sys
-
 
 common = Common()
 me = Person()
@@ -46,7 +44,9 @@ def cli():
         try:
             recordText = ""
             messages = contextManager.get()
-            chunks = chatGpt.chat(messages)
+            
+            with common.console().status("[bold yellow]Robot[/bold yellow]: ",spinner="dots"):
+                chunks = chatGpt.chat(messages)
             robot.print(end="")
             for chunk in chunks:
                 res = Response(chunk)

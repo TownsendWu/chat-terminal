@@ -48,6 +48,9 @@ chat-terminal emoji
     def clear(self):
         console.clear()
 
+    def console(self):
+        return console
+        
 
 class Person:
     def __init__(self):
