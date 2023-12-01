@@ -8,7 +8,7 @@ with io.open("README.md", "rt", encoding="utf8") as f:
     LONG_DESC = f.read()
 
 # 版本号.修改号.修复号
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 # This call to setup() does all the work
 setup(

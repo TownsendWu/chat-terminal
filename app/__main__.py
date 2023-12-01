@@ -20,6 +20,10 @@ def cli():
     while True:
         input = me.input()
 
+        if len(input) == 0:
+            robot.print("请输入具体问题")
+            continue
+
         if input == "quit":
             robot.print("bye ~")
             break
