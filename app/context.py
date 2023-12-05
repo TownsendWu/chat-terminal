@@ -8,6 +8,9 @@ class ContextManager:
         self.messages = [
             {"role": "system", "content": initRole},
         ]
+        self.history = [
+            {"role": "system", "content": initRole},
+        ]
 
     def get(self):
         while self.currentLength >= self.maxwordLength and len(self.messages) > 0:
@@ -16,10 +19,14 @@ class ContextManager:
             self.messages = self.messages[1:]
         
         return self.messages
+    
+    def get_history(self):
+        return self.history
 
     def add(self, role, message):
         self.currentLength += len(message)
         self.messages.append({"role": role, "content": message})
+        self.history.append({"role": role, "content": message})
 
     def remove(self, size=1):
         """删最后size个"""

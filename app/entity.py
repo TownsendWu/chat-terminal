@@ -29,7 +29,8 @@ chat-terminal emoji
 ```
 - 输入 **quit** 退出
 - 输入 **clear** 清屏
-- 输入 **context** 查看上下文
+- 输入 **context** 查看当前上下文
+- 输入 **history** 查看历史聊天记录
 - 输入 **reset** 重置api key
 """
         markdown = Markdown(welcome)

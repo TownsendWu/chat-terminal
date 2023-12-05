@@ -36,6 +36,10 @@ def cli():
             common.context(contextManager.get())
             continue
 
+        if input == "history":
+            common.context(contextManager.get_history())
+            continue
+
         if input == "reset":
             api_key = initApiKey(True)
             chatGpt = ChaGPT(api_key)
